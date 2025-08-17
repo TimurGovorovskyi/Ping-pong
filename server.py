@@ -46,7 +46,7 @@ class GameServer:
                     if data == "UP":
                         self.paddles[pid] = max(60, self.paddles[pid] -PADDLE_SPEED)
                     elif data == "DOWN":
-                        self.apddles[pid] = min(HEIGHT - 100, self.paddles[pid] + PADDLE_SPEED)
+                        self.paddles[pid] = min(HEIGHT - 100, self.paddles[pid] + PADDLE_SPEED)
         except:
             with self.lock:
                 self.connected[pid] = False
@@ -125,7 +125,7 @@ class GameServer:
             print(f"Waiting for player {pid}...")
             conn, _ = self.server.accept()
             self.clients[pid] = conn
-            self.sendall((str(pid) + "\n").encode())
+            conn.sendall((str(pid) + "\n").encode())
             self.connected[pid] = True
             print(f"Player {pid} connected.")
             threading.Thread(target=self.handle_client, args=(pid,), daemon=True).start()

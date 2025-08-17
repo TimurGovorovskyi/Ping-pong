@@ -35,7 +35,7 @@ def receive():
                     game_state = json.loads(packet)
         except:
             game_state["winner"] = -1
-            break
+            
 
 # --- ШРИФТИ ---
 font_win = font.Font(None, 72)
